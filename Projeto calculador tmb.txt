@@ -1,0 +1,58 @@
+def calcular_tmb(idade, peso, altura, sexo):
+    while True:
+        if sexo == "masculino":
+            return (10 * peso) + (6.25 * altura) - (5 * idade) + 5
+        elif sexo == "feminino":
+            return (10 * peso) + (6.25 * altura) - (5 * idade) - 161
+        else:
+            print('Sexo inválido. Digite novamente (Masculino/Feminino).')
+            sexo = input('Digite seu sexo: ').strip().lower()
+
+
+
+idade = int(input('Digite sua idade: '))
+peso = float(input('Digite seu peso (kg): '))
+altura = float(input('Digite sua altura (em cm): '))
+sexo = input('Digite seu sexo (Masculino/Feminino): ').strip().lower()
+
+
+tmb = calcular_tmb(idade, peso, altura, sexo)
+
+
+na = input('Digite seu nível de atividade (Sedentário/Pouco ativo/Normal/Muito ativo): ').strip().lower()
+
+if na in ['sedentário', 'sedentario']:
+    get = tmb * 1.2
+elif na == 'pouco ativo':
+    get = tmb * 1.375
+elif na == 'normal':
+    get = tmb * 1.55
+elif na == 'muito ativo':
+    get = tmb * 1.725
+else:
+    print('Nível de atividade inválido. Assumindo sedentário.')
+    get = tmb * 1.2
+
+
+ob = input('Qual seu objetivo (Cutting/Bulking): ').strip().lower()
+if ob == 'cutting':
+    calorias = get - 500
+    print('Este é o total de calorias a serem ingeridas: {:.0f} kcal'.format(calorias))
+elif ob == 'bulking':
+    calorias = get + 450
+    print('Este é o total de calorias a serem ingeridas: {:.0f} kcal'.format(calorias))
+else:
+    calorias = get - 500
+    print("Objetivo inválido. Assumindo 'Cutting'.", calorias)
+
+
+proteina = 2 * peso
+gordura = peso
+calorias_proteinas = proteina * 4
+calorias_gorduras = gordura * 9
+calorias_restantes = calorias - (calorias_proteinas + calorias_gorduras)
+carboidratos = calorias_restantes / 4
+
+
+print('\nQuantidade diária de macronutrientes:')
+print('{:.1f}g de proteína, {:.1f}g de gordura, {:.1f}g de carboidratos.'.format(proteina, gordura, carboidratos))
